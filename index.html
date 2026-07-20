@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QIKGO Safar - Long-Distance & Rural Ride-Sharing Prototype</title>
+    <!-- CSS Stylesheet -->
+    <link rel="stylesheet" href="styles.css">
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body data-theme="dark">
+
+    <!-- App Header -->
+    <header class="app-header">
+        <a href="#" class="brand">
+            <div class="brand-logo">Q</div>
+            <div class="brand-name">QIKGO <span class="brand-tag">Safar</span></div>
+        </a>
+        <div class="header-controls">
+            <nav class="nav-tabs">
+                <button class="nav-tab active" data-tab="passenger">
+                    <i data-lucide="user"></i> Passenger Booking
+                </button>
+                <button class="nav-tab" data-tab="driver">
+                    <i data-lucide="truck"></i> Driver Portal
+                </button>
+                <button class="nav-tab" data-tab="sms">
+                    <i data-lucide="phone-off"></i> SMS Offline Mode
+                </button>
+            </nav>
+            <button class="theme-toggle" id="theme-toggle-btn" title="Toggle Theme">
+                <i data-lucide="sun" id="theme-icon"></i>
+            </button>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Top Banner: Differentiator Strategy Promo -->
+        <div class="strategy-banner">
+            <div class="strategy-banner-content">
+                <h4>Highway Hub-to-Hub & Shared Logistics Differentiators</h4>
+                <p>QIKGO Safar avoids expensive door-to-door rural detours and leverages cargo-hybrid income to reduce inter-city passenger fares by up to 40%.</p>
+            </div>
+            <button class="btn-learn-more" id="open-strategy-modal">
+                View Business Strategy
+            </button>
+        </div>
+
+        <!-- Dashboard Grid Layout -->
+        <div class="dashboard-grid">
+            
+            <!-- LEFT COLUMN: Interactive Interfaces -->
+            <div class="interactive-column">
+                
+                <!-- TAB 1: Passenger Booking Interface -->
+                <div class="card active-card tab-content active" id="passenger-tab">
+                    <h3 class="card-title">Book a Highway Ride</h3>
+                    <p class="card-subtitle">Select a corridor route, pick up hub, and options to estimate your fare.</p>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Corridor Route</label>
+                        <select class="input-control" id="booking-route">
+                            <option value="pune-satara">Pune - Satara Corridor (NH 48)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">From Hub (Pickup)</label>
+                            <select class="input-control" id="pickup-hub">
+                                <option value="Pune Hub">Pune Swargate Junction</option>
+                                <option value="Shirwal Junction">Shirwal Junction</option>
+                                <option value="Wai Phata">Wai Phata (Highway Crossing)</option>
+                                <option value="Satara Hub">Satara Highway Hub</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">To Hub (Destination)</label>
+                            <select class="input-control" id="drop-hub">
+                                <option value="Satara Hub" selected>Satara Highway Hub</option>
+                                <option value="Wai Phata">Wai Phata (Highway Crossing)</option>
+                                <option value="Shirwal Junction">Shirwal Junction</option>
+                                <option value="Pune Hub">Pune Swargate Junction</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Departure Date & Time</label>
+                            <select class="input-control" id="dep-time">
+                                <option value="today-14">Today, 02:00 PM (Scheduled)</option>
+                                <option value="today-18">Today, 06:00 PM (Scheduled)</option>
+                                <option value="tomorrow-08">Tomorrow, 08:00 AM (Scheduled)</option>
+                                <option value="tomorrow-12">Tomorrow, 12:00 PM (Scheduled)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Seats Required</label>
+                            <select class="input-control" id="seats-count">
+                                <option value="1">1 Seat</option>
+                                <option value="2">2 Seats</option>
+                                <option value="3">3 Seats</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Route Selection Cards -->
+                    <div class="form-group">
+                        <label class="form-label">Route Type (Choose Economy Differentiator)</label>
+                        <div class="route-type-select">
+                            <div class="route-type-option active" data-type="hub">
+                                <div class="route-type-title">
+                                    <i data-lucide="map-pin"></i> Hub-to-Hub
+                                </div>
+                                <div class="route-type-desc">Board at designated main highway junctions. Saves time and detour costs.</div>
+                                <span class="route-type-tag">Economy Save</span>
+                            </div>
+                            <div class="route-type-option premium" data-type="door">
+                                <div class="route-type-title">
+                                    <i data-lucide="navigation"></i> Door-to-Door
+                                </div>
+                                <div class="route-type-desc">Custom driver pickup/drop off. Subject to rural detour pricing.</div>
+                                <span class="route-type-tag">Premium Care</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cargo Add-on Switch -->
+                    <div class="cargo-checkbox-container" id="cargo-toggle-btn">
+                        <div class="cargo-checkbox-info">
+                            <i data-lucide="package" style="color: var(--accent-amber)"></i>
+                            <div class="cargo-checkbox-info-text">
+                                <h5>Ship Shared Cargo Package</h5>
+                                <p>Deliver a parcel on this ride to subsidize passenger ticket cost.</p>
+                            </div>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox" id="cargo-enabled">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+
+                    <!-- Cargo details inputs (hidden by default) -->
+                    <div id="cargo-details-panel" style="display: none; margin-bottom: 1.5rem; animation: fadeIn 0.3s ease;">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Package Type</label>
+                                <select class="input-control" id="cargo-type">
+                                    <option value="documents">Documents / Envelope</option>
+                                    <option value="box-small" selected>Small Box (Under 5kg)</option>
+                                    <option value="box-medium">Medium Box (5-15kg)</option>
+                                    <option value="produce">Farm Produce Basket (Local)</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Recipient Phone Number</label>
+                                <input type="text" class="input-control" placeholder="+91 98765 43210" id="cargo-recipient">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pricing breakdown -->
+                    <div class="pricing-breakdown">
+                        <div class="pricing-row">
+                            <span>Base Passenger Seat Fee (<span id="summary-seats">1</span>x)</span>
+                            <span id="price-base">₹250.00</span>
+                        </div>
+                        <div class="pricing-row" id="price-row-detour" style="display: none;">
+                            <span>Rural Detour Fee (Door-to-Door)</span>
+                            <span id="price-detour">₹120.00</span>
+                        </div>
+                        <div class="pricing-row" id="price-row-cargo-credit" style="display: none; color: var(--accent-emerald);">
+                            <span>Shared Cargo Payout Credit <span class="saving-pill"><i data-lucide="tag"></i> Subsidized</span></span>
+                            <span id="price-cargo-credit">-₹80.00</span>
+                        </div>
+                        <div class="pricing-row total">
+                            <span>Estimated Total Fare</span>
+                            <span id="price-total" style="color: var(--accent-emerald)">₹250.00</span>
+                        </div>
+                    </div>
+
+                    <button class="btn-primary" id="confirm-booking-btn">
+                        <i data-lucide="check-circle"></i> Confirm Scheduled Booking
+                    </button>
+                </div>
+
+                <!-- TAB 2: Driver Portal Interface -->
+                <div class="card tab-content" id="driver-tab">
+                    <div class="driver-dashboard">
+                        <h3 class="card-title">Driver Control Center</h3>
+                        <p class="card-subtitle">Manage scheduled long-distance manifests and cargo logistics.</p>
+
+                        <div class="driver-stats">
+                            <div class="stat-box">
+                                <div class="stat-val" id="driver-earnings">₹1,450</div>
+                                <div class="stat-label">Today's Payout</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="stat-val" id="driver-manifest-seats">3 / 4</div>
+                                <div class="stat-label">Seats Booked</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="stat-val" id="driver-manifest-cargo">2 Items</div>
+                                <div class="stat-label">Trunk Cargo</div>
+                            </div>
+                        </div>
+
+                        <!-- Active Route Manifest -->
+                        <div class="form-group">
+                            <label class="form-label">Active Trip Manifest: Pune - Satara Corridor</label>
+                            <div class="manifest-list" id="manifest-items-container">
+                                <!-- Manifest items loaded dynamically via JS -->
+                            </div>
+                        </div>
+
+                        <!-- Return Trip Matching Differentiator -->
+                        <div class="form-group" style="margin-top: 1rem;">
+                            <div class="cargo-checkbox-container" style="border-color: rgba(16, 185, 129, 0.3); background: rgba(16, 185, 129, 0.02)">
+                                <div class="cargo-checkbox-info">
+                                    <i data-lucide="refresh-cw" style="color: var(--accent-emerald)"></i>
+                                    <div class="cargo-checkbox-info-text">
+                                        <h5>Automatic Backhaul Finder</h5>
+                                        <p>Match with Satara-to-Pune return rides and parcel drops immediately.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="btn-primary" id="simulate-backhaul-btn" style="background: linear-gradient(135deg, var(--accent-emerald), #059669)">
+                                <i data-lucide="shuffle"></i> Find Return Route Matches
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 3: SMS Offline Simulator -->
+                <div class="card tab-content" id="sms-tab">
+                    <div class="offline-card">
+                        <h3 class="card-title">Offline SMS & USSD Portal</h3>
+                        <p class="card-subtitle">Simulate booking rides and shipping parcels under low-bandwidth networks.</p>
+
+                        <div class="info-bullet">
+                            <i data-lucide="signal-high" class="info-bullet-icon"></i>
+                            <div>
+                                <strong>Erratic Cellular Fallback:</strong>
+                                QIKGO Safar functions via local cell-tower text routing, allowing complete booking without active 3G/4G/5G data coverage.
+                            </div>
+                        </div>
+
+                        <div class="info-bullet">
+                            <i data-lucide="message-square" class="info-bullet-icon"></i>
+                            <div>
+                                <strong>Structured SMS Codes:</strong>
+                                Users text short codes (e.g., <code>BOOK SHIRWAL SATARA</code>) to a toll-free server. Our platform matches them and responds with booking details.
+                            </div>
+                        </div>
+
+                        <div class="info-bullet">
+                            <i data-lucide="store" class="info-bullet-icon"></i>
+                            <div>
+                                <strong>Panchayat / Hub Booking Agent:</strong>
+                                Local tea-shop owners and Panchayat offices use USSD menus to book journeys for elderly or digitally-illiterate villagers, earning commission credits.
+                            </div>
+                        </div>
+
+                        <div class="form-group" style="margin-top: 1rem;">
+                            <label class="form-label">Simulated Commands (Click to Send from Phone)</label>
+                            <div class="sms-buttons-grid" style="grid-template-columns: 1fr; background: none; border: none; padding: 0; gap: 8px;">
+                                <button class="btn-sms-action" id="cmd-book-sms" style="padding: 0.8rem; text-align: left; display: flex; align-items: center; justify-content: space-between;">
+                                    <span>Send Code: <code>BOOK PUNE SATARA</code></span>
+                                    <i data-lucide="chevron-right" size="16"></i>
+                                </button>
+                                <button class="btn-sms-action" id="cmd-cargo-sms" style="padding: 0.8rem; text-align: left; display: flex; align-items: center; justify-content: space-between;">
+                                    <span>Send Code: <code>BOOK SHIRWAL PUNE CARGO BOX</code></span>
+                                    <i data-lucide="chevron-right" size="16"></i>
+                                </button>
+                                <button class="btn-sms-action" id="cmd-status-sms" style="padding: 0.8rem; text-align: left; display: flex; align-items: center; justify-content: space-between;">
+                                    <span>Send Code: <code>STATUS</code></span>
+                                    <i data-lucide="chevron-right" size="16"></i>
+                                </button>
+                                <button class="btn-sms-action" id="cmd-help-sms" style="padding: 0.8rem; text-align: left; display: flex; align-items: center; justify-content: space-between;">
+                                    <span>Send Code: <code>HELP</code></span>
+                                    <i data-lucide="chevron-right" size="16"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- RIGHT COLUMN: Map & Device Simulators -->
+            <div class="simulators-column" style="display: flex; flex-direction: column; gap: 2rem; height: 100%;">
+                
+                <!-- Map Card -->
+                <div class="card active-card map-card">
+                    <h3 class="card-title">
+                        <span>NH 48 Highway Corridor Map</span>
+                        <span class="saving-pill" id="route-pulse-badge" style="background: rgba(6, 182, 212, 0.1); color: var(--accent-cyan);">
+                            <i data-lucide="circle-dot" class="pulsing" style="animation: pulse 1.5s infinite;"></i> Corridor Online
+                        </span>
+                    </h3>
+                    <p class="card-subtitle">Real-time simulation of Pune-Satara route hubs (100km stretch).</p>
+                    
+                    <div class="map-container">
+                        <!-- Custom Highway SVGs for self-containment -->
+                        <svg viewBox="0 0 400 500" class="map-svg" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Background Map grid/rivers for premium visual -->
+                            <rect width="400" height="500" rx="14" fill="#0f172a"/>
+                            <path d="M 50,-10 C 120,80 80,180 150,220 C 200,250 180,350 250,420 C 280,450 310,480 380,510" stroke="#1e293b" stroke-width="6" fill="none" opacity="0.4"/>
+                            
+                            <!-- Main Highway Route (NH 48) -->
+                            <path id="highway-route" d="M 200,60 C 200,140 120,180 120,240 C 120,310 280,340 280,440" stroke="#334155" stroke-width="8" stroke-linecap="round" fill="none"/>
+                            
+                            <!-- Glowing Route overlay when active -->
+                            <path id="highway-route-glow" d="M 200,60 C 200,140 120,180 120,240 C 120,310 280,340 280,440" stroke="url(#route-grad)" stroke-width="4" stroke-linecap="round" fill="none" stroke-dasharray="10 200" stroke-dashoffset="0" style="animation: dash 6s linear infinite;"/>
+                            
+                            <defs>
+                                <linearGradient id="route-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="var(--accent-cyan)" />
+                                    <stop offset="100%" stop-color="var(--accent-emerald)" />
+                                </linearGradient>
+                            </defs>
+
+                            <!-- Junction Hub Dots & Labels -->
+                            <!-- Hub 1: Pune Hub -->
+                            <g class="map-hub-g" transform="translate(200, 60)" id="map-hub-pune">
+                                <circle cx="0" cy="0" r="7" fill="var(--accent-cyan)" class="map-hub-dot"/>
+                                <text x="15" y="4" class="map-hub-label">Pune Swargate</text>
+                            </g>
+
+                            <!-- Hub 2: Shirwal Junction -->
+                            <g class="map-hub-g" transform="translate(145, 195)" id="map-hub-shirwal">
+                                <circle cx="0" cy="0" r="7" fill="var(--accent-emerald)" class="map-hub-dot"/>
+                                <text x="15" y="4" class="map-hub-label">Shirwal Jnc.</text>
+                            </g>
+
+                            <!-- Hub 3: Wai Phata -->
+                            <g class="map-hub-g" transform="translate(210, 325)" id="map-hub-wai">
+                                <circle cx="0" cy="0" r="7" fill="var(--accent-emerald)" class="map-hub-dot"/>
+                                <text x="-75" y="4" class="map-hub-label">Wai Phata</text>
+                            </g>
+
+                            <!-- Hub 4: Satara Hub -->
+                            <g class="map-hub-g" transform="translate(280, 440)" id="map-hub-satara">
+                                <circle cx="0" cy="0" r="7" fill="var(--accent-cyan)" class="map-hub-dot"/>
+                                <text x="-80" y="4" class="map-hub-label">Satara Hub</text>
+                            </g>
+
+                            <!-- Simulated Active Car Marker -->
+                            <g id="map-car" transform="translate(200, 60)" class="map-car-icon" style="opacity: 0;">
+                                <circle cx="0" cy="0" r="14" fill="var(--accent-amber)" opacity="0.3" style="animation: pulse 1s infinite;"/>
+                                <circle cx="0" cy="0" r="8" fill="var(--accent-amber)" stroke="white" stroke-width="2"/>
+                                <polygon points="0,-4 3,3 -3,3" fill="white" transform="rotate(180)"/>
+                            </g>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- Phone SMS Simulator Card -->
+                <div class="card active-card phone-simulator-card" style="padding: 1.5rem; display: flex; flex-direction: column; align-items: center;">
+                    <div class="phone-simulator-wrapper">
+                        <div class="phone-case">
+                            <div class="phone-notch">
+                                <div class="phone-speaker"></div>
+                            </div>
+                            <div class="phone-screen">
+                                <!-- Status bar -->
+                                <div class="phone-status-bar">
+                                    <span>10:50 AM</span>
+                                    <div class="phone-status-icons">
+                                        <i data-lucide="signal" size="10"></i>
+                                        <i data-lucide="wifi-off" size="10" style="color: var(--accent-rose)"></i>
+                                        <i data-lucide="battery" size="10"></i>
+                                    </div>
+                                </div>
+                                <!-- SMS Header -->
+                                <div class="phone-sms-header">
+                                    <div class="phone-sms-avatar">QS</div>
+                                    <div class="phone-sms-contact">
+                                        <h6>QIKGO-OFFLINE</h6>
+                                        <p><i data-lucide="shield-check" size="10" style="display:inline; vertical-align:middle;"></i> verified channel</p>
+                                    </div>
+                                </div>
+                                <!-- SMS body -->
+                                <div class="phone-sms-body" id="sms-messages-container">
+                                    <!-- Messages loaded dynamically via JS -->
+                                    <div class="sms-bubble incoming">
+                                        Welcome to QIKGO Safar offline help desk. You are currently offline (no internet detected).
+                                        <br><br>
+                                        Use commands to book:
+                                        <br><code>BOOK [from] [to]</code>
+                                        <br><br>Or ask for cargo details:
+                                        <br><code>BOOK [from] [to] CARGO [type]</code>
+                                        <span class="sms-time">10:48 AM</span>
+                                    </div>
+                                </div>
+                                <!-- SMS Input footer (dummy representation) -->
+                                <div class="phone-sms-input">
+                                    <div style="background: rgba(255,255,255,0.05); flex-grow: 1; padding: 6px 12px; border-radius: 20px; color: #666; font-size: 0.75rem;">
+                                        Text message...
+                                    </div>
+                                    <button style="background: var(--accent-cyan); border: none; border-radius: 50%; width: 28px; height: 28px; display:flex; align-items:center; justify-content:center; color:white; cursor:pointer;">
+                                        <i data-lucide="send" size="12"></i>
+                                    </button>
+                                </div>
+                                <div class="phone-home-indicator"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Strategy Info Modal Overlay -->
+        <div class="modal-overlay" id="strategy-modal">
+            <div class="modal">
+                <div class="modal-header">
+                    <h3>QIKGO Safar - Business Strategy</h3>
+                    <button class="btn-close-modal" id="close-strategy-modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <h4>1. Differentiation Strategy</h4>
+                    <p>Unlike Ola, Uber, and Rapido, which focus on short-distance urban micro-mobility, QIKGO Safar is engineered for long-distance highways and underserved rural communities. By focusing on scheduled carpool routes, we solve low density constraints. By offering junction-to-junction hubs, we eliminate time-killing detours, keeping operating costs low.</p>
+                    
+                    <h4>2. Hybrid Logistics Revenue</h4>
+                    <p>Every long-distance traveler is essentially moving cargo space (the trunk of the car). By allowing micro-merchants to ship boxes and documents through our verified driver pool, we establish a secondary revenue stream that cross-subsidizes passenger fares. Drivers earn up to 40% more per trip, while passengers pay 30-40% less than regional bus tickets.</p>
+                    
+                    <h4>3. Low-Bandwidth Infrastructure</h4>
+                    <p>Rather than requiring active internet connections, which drop constantly on high-speed highway corridors and remote villages, we offer a server-side USSD & SMS interpreter. This permits riders to book, check route statuses, and contact emergency systems entirely through local cellular carrier tower feeds.</p>
+
+                    <h4>4. Branding Options</h4>
+                    <p>While the parent brand is <strong>QIKGO</strong>, the long-distance service is named <strong>QIKGO Safar</strong>. "Safar" is a widely recognized word for journey/travel across multiple Indian languages, evoking a sense of trust, long-distance safety, and community travel, differentiating it from rapid urban delivery services.</p>
+
+                    <h4>5. Initial Go-To-Market Corridor</h4>
+                    <p>We are simulating the Pune-Satara highway corridor (NH 48) in Maharashtra, India. This 100km corridor is highly active with students, farmers, cargo haulers, and workers traveling daily. Instead of recruitment marketing, we partner with roadside junction restaurants and Panchayat offices to onboard passengers offline.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2026 QIKGO Safar. Developed as a high-fidelity interactive strategy prototype for inter-city and rural mobility.</p>
+    </footer>
+
+    <!-- App JavaScript Logic -->
+    <script src="app.js"></script>
+</body>
+</html>
